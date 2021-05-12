@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, Alert } from 'react-na
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 
-
 const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -43,6 +42,13 @@ const LoginScreen = ({navigation}) => {
                     No account? Click here to sign up!
                 </Text>
             </TouchableOpacity>
+            {/*
+            <View style={{ flex: 1, paddingTop: 100 }}>
+                <Text>
+                    {Device.manufacturer}: {Device.modelName}
+                </Text>
+            </View>
+            */}
         </View>
     );
 };
@@ -59,7 +65,7 @@ const styles = StyleSheet.create({
     },
     logo: {
         height: 83,
-        width: 277,
+        minWidth: "100%",
         marginBottom: 30,
         resizeMode: 'cover',
     },
@@ -79,6 +85,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: '500',
         color: '#2e64e5',
-        //fontFamily
+        
     },
 });

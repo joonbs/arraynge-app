@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, FlatList, Button, Alert, Keyboard, Text } from 'react-native';
-import firebase from 'firebase';
-import { TextInput } from 'react-native-paper';
+import { StyleSheet, View, FlatList, Button, Alert, Keyboard, Text, TouchableOpacity } from 'react-native';
+import * as firebase from 'firebase';
+import { TextInput, Appbar, List } from 'react-native-paper';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const firebaseConfig = {
-  apiKey: "key",
-  authDomain: "_.firebaseapp.com",
-  databaseURL: "_rtdb.firebaseio.com",
-  projectId: "_",
-  storageBucket: "_",
-  messagingSenderId: "_",
-  appId: "_"
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
 };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
@@ -53,6 +54,9 @@ const HomeScreen = () =>  {
 
   return (
     <View style={styles.container}>
+      <Appbar>
+        <Appbar.Content title={"Arraynge"} />
+      </Appbar>
       <TextInput
         style={styles.nameInput}
         label={"Name"} 
@@ -75,7 +79,11 @@ const HomeScreen = () =>  {
         value={comment}
         />
 
-      <Button onPress={saveItem} title="Save" />
+      <Button 
+        onPress={saveItem} 
+        title="Save" 
+        color="teal"
+      />
 
       <Text style={styles.listHeader}> Your list </Text>
 
@@ -84,18 +92,24 @@ const HomeScreen = () =>  {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item}) => 
         <View style={styles.listcontainer}>
-          <Text style={{fontSize: 18}}>
-            Name: {item.name} {'\n'} 
-            Rating: {item.rating} {'\n'} 
-            Comment: {item.comment} {'\n'}
-          </Text> 
-
-        <Button onPress={() => deleteItem(item.key)} title="Delete" />
-        
+          <TouchableOpacity onLongPress={() => deleteItem(item.key)}>
+            <Text style={{fontSize: 18}}>Name: {item.name}</Text>
+            <Text style={{fontSize: 18}}>Rating: {item.rating}</Text>
+            <Text style={{fontSize: 18}}>Comment: {item.comment}</Text>
+          <TouchableOpacity
+            onPress={() => deleteItem(item.key)}
+          >
+          <FontAwesome5
+            style={{ color: "red", textAlign: "center" }}
+            name="trash"
+            size={18}
+          />
+          </TouchableOpacity>
+        </TouchableOpacity>
         </View>
         }
         data={items} 
-        />
+      />
     </View>
   );
 }
@@ -130,7 +144,7 @@ const styles = StyleSheet.create({
     borderWidth: 1
   },
   commentInput: {
-    marginTop: 5, 
+    marginTop: 5,
     marginBottom: 5, 
     fontSize: 18, 
     width: 200, 
