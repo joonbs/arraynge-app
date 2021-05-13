@@ -2,11 +2,21 @@ import React, {useState} from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
+import * as firebase from 'firebase';
 
-const LoginScreen = ({navigation}) => {
+export default LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
+    {/*const handleLogin = () => {
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(() => {
+                navigation.navigate('Home');
+            })
+    }
+    */}
     return (
         <View style={styles.container}>
             <Image 
@@ -53,7 +63,6 @@ const LoginScreen = ({navigation}) => {
     );
 };
 
-export default LoginScreen;
 
 const styles = StyleSheet.create({
     container: {

@@ -1,13 +1,20 @@
 import React, {useState} from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Alert } from 'react-native';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
+import * as firebase from 'firebase';
 
 
-const SignupScreen = ({navigation}) => {
+export default SignupScreen = ({navigation}) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [confirmPassword, setConfirmPassword] = useState();
+
+const handleSignUp = () => {
+    firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => navigation.navigate('Home'))
+}
 
     return (
         <View style={styles.container}>
@@ -30,22 +37,14 @@ const SignupScreen = ({navigation}) => {
                 secureTextEntry={true}
             />
 
-            <FormInput
-                labelValue={confirmPassword} 
-                onChangeText={(userPassword) => setPassword(userPassword)}
-                placeholderText="Confirm password"
-                iconType="lock"
-                secureTextEntry={true}
-            />
             <FormButton
                 buttonTitle="Sign up"
-                onPress={() => Alert.alert('test')}
+                onPress={handleSignUp}
             />
         </View>
     );
 };
 
-export default SignupScreen;
 
 const styles = StyleSheet.create({
     container: {
